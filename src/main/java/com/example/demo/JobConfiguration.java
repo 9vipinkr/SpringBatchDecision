@@ -100,6 +100,17 @@ public class JobConfiguration {
 			    .end()
 				.build();
 	}
-
+	//Add SecondJob from local
+	@Bean
+	public Job secondJob() {
+		return jobBuilderFactory.get("secondJob") 
+				.start(myStep())
+			    .next(decision())
+		        .on("ODD").to(oddStep())
+			    .on("EVEN").to(evenStep())
+			    .on("*").to(decision())
+			    .end()
+				.build();
+	}
 	
 }
